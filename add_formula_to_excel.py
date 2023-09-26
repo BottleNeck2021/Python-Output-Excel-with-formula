@@ -1,17 +1,13 @@
-# taken from https://www.youtube.com/watch?v=NumRV55XIKg
+# this will output an excel file called output.xlsx with two random arrays and mathematical operations on those two arrays
 
 import pandas as pd
-from openpyxl import load_workbook
 import numpy as np
 
 arraySize = np.random.randint(100)
 
-# Writing the fomula directly into the cell
-# datasetA_list = np.array([1,2,3,4,5,6,7,8,9,10])
 # generate random integer
 datasetA_list = np.random.randint(100, size=arraySize)
 
-# datasetB_list = np.array([9,8,7,6,5,4,3,2,1,1])
 datasetB_list = np.random.randint(100, size=arraySize)
 
 dataset_list = ('sum', 'average', 'median', 'std deviation', 'count', 'correlation')
@@ -23,8 +19,6 @@ dataset_list_calcs = pd.DataFrame(dataset_list, columns=['Calcs'])
 path = "output.xlsx"
 
 workbook = pd.ExcelWriter(path, engine='openpyxl')
-# workbook.book = load_workbook(path)
-# workbook.sheets = dict((ws.title, ws) for ws in workbook.book.worksheets)
 
 datasetA.to_excel(workbook,sheet_name='Sheet1', startrow=1, index=False, header=True)
 datasetB.to_excel(workbook,sheet_name='Sheet1', startrow=1, startcol=2, index=False, header=True)
@@ -51,9 +45,6 @@ sheet['H5'] = '=MEDIAN(C3:C' + str(datasetA_list.size + 2) + ')'
 sheet['H6'] = '=STDEV(C3:C' + str(datasetA_list.size + 2) + ')'
 sheet['H7'] = '=COUNT(C3:C' + str(datasetA_list.size + 2) + ')'
 sheet['H8'] = '=CORREL(A3:A' + str(datasetA_list.size + 2) + ',C3:C' + str(datasetA_list.size + 2) + ')'
-
-# workbook.save()
-# workbook.close()
 
 # Use Numpy to calculate the values
 
@@ -82,5 +73,4 @@ sheet['F18'] = d
 sheet['F19'] = f
 sheet['F20'] = str(g)
 
-# workbook.save()
 workbook.close()
