@@ -48,15 +48,6 @@ sheet['H8'] = '=CORREL(A3:A' + str(datasetA_list.size + 2) + ',C3:C' + str(datas
 
 # Use Numpy to calculate the values
 
-a = np.sum(datasetA_list)
-b = np.average(datasetA_list)
-c = np.median(datasetA_list)
-d = np.std(datasetA_list, ddof=1)       # setting ddof to 0 will give a different result
-f = np.count_nonzero(datasetA_list)
-g = np.corrcoef(datasetA_list, datasetB_list)
-
-print(a,b,c,d,f,g)
-
 sheet['E14'] = 'Numpy Calculations'
 sheet['E15'] = 'Sum'
 sheet['E16'] = 'Average'
@@ -65,12 +56,11 @@ sheet['E18'] = 'Standard Deviation'
 sheet['E19'] = 'Count'
 sheet['E20'] = 'Correlation'
 
-
-sheet['F15'] = a
-sheet['F16'] = b
-sheet['F17'] = c
-sheet['F18'] = d
-sheet['F19'] = f
-sheet['F20'] = str(g)
+sheet['F15'] = np.sum(datasetA_list)
+sheet['F16'] = np.average(datasetA_list)
+sheet['F17'] = np.median(datasetA_list)
+sheet['F18'] = np.std(datasetA_list, ddof=1)       # setting ddof to 0 will give a different result
+sheet['F19'] = np.count_nonzero(datasetA_list)
+sheet['F20'] = str(np.corrcoef(datasetA_list, datasetB_list))
 
 workbook.close()
